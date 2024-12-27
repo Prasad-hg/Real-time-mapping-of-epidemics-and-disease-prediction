@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .result-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .risk-box {
+            margin-top: 10px;
+            background-color: #ffeded;
+            padding: 10px;
+            border-left: 4px solid #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prediction Result</h1>
+
+    <div class="result-container">
+        <h2>Predicted Disease</h2>
+        <p><strong>Prediction:</strong> {{ disease }}</p>
+        <p><strong>Probability:</strong> {{ probability }}%</p>
+
+        <h2>Risk Factors</h2>
+        <ul>
+            <li><strong>City:</strong> {{ city }}</li>
+            <li><strong>Severe Symptoms:</strong> {{ severe_symptoms }}</li>
+            <li><strong>Climate:</strong>
+                <ul>
+                    <li><strong>Temperature:</strong> {{ temperature_risk }}</li>
+                    <li><strong>Humidity:</strong> {{ humidity_risk }}</li>
+                    <li><strong>Rainfall:</strong> {{ rainfall_risk }}</li>
+                </ul>
+            </li>
+        </ul>
+
+        {% if high_risk_city %}
+        <div class="risk-box">
+            <strong>High-Risk City:</strong> {{ city }} - Increased risk for mosquito-borne diseases.
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

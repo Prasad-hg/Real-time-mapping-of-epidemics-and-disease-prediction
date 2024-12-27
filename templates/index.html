@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaria and Dengue Prediction</title>
+    <style>
+        body {
+            background: url('static/images/symptom.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.5); /* white with 80% opacity */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .range-container {
+            margin-top: 15px;
+        }
+        .range-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .range-description {
+            font-size: 12px;
+            color: #555;
+        }
+        .range-value {
+            font-weight: bold;
+            font-size: 14px;
+            margin-left: 10px;
+            color: #333;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+        function updateValue(sliderId, displayId) {
+            const slider = document.getElementById(sliderId);
+            const display = document.getElementById(displayId);
+            display.textContent = slider.value;
+        }
+    </script>
+</head>
+<body>
+    <h1 >Malaria and Dengue Prediction</h1>
+    <form action="/predict" method="POST">
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required>
+
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label for="location">Location:</label>
+        <select name="location" id="location" required>
+            <option value="">Select Location</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Pune">Pune</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="West Bengal">West Bengal</option>
+        </select>
+
+        <!-- Symptoms with dynamic display -->
+        <div class="range-container">
+            <div class="range-info">
+                <label for="fever">Fever:</label>
+                <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="fever" id="fever" min="0" max="3" value="0" oninput="updateValue('fever', 'feverValue')" required>
+            <span id="feverValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+                <label for="headache">Headache:</label>
+                <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="headache" id="headache" min="0" max="3" value="0" oninput="updateValue('headache', 'headacheValue')" required>
+            <span id="headacheValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+                <label for="joint_pain">Joint Pain:</label>
+                <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="joint_pain" id="joint_pain" min="0" max="3" value="0" oninput="updateValue('joint_pain', 'jointPainValue')" required>
+            <span id="jointPainValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+                <label for="muscle_pain">Muscle Pain:</label>
+                <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="muscle_pain" id="muscle_pain" min="0" max="3" value="0" oninput="updateValue('muscle_pain', 'musclePainValue')" required>
+            <span id="musclePainValue" class="range-value">0</span>
+        </div>
+        <div class="range-container">
+            <div class="range-info">
+            <label for="fatigue">Fatigue:</label>
+            <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="fatigue" id="fatigue" min="0" max="3" value="0" oninput="updateValue('fatigue', 'fatigueValue')" required>
+            <span id="fatigueValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+            <label for="nausea_vomiting">Nausea/Vomiting:</label>
+            <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="nausea_vomiting" id="nausea_vomiting" min="0" max="3" value="0" oninput="updateValue('nausea_vomiting', 'nauseaVomitingValue')" required>
+            <span id="nauseaVomitingValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+            <label for="rash">Rash:</label>
+            <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="rash" id="rash" min="0" max="3" value="0" oninput="updateValue('rash', 'rashValue')" required>
+            <span id="rashValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+            <label for="chills">Chills:</label>
+            <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="chills" id="chills" min="0" max="3" value="0" oninput="updateValue('chills', 'chillsValue')" required>
+            <span id="chillsValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+            <label for="abdominal_pain">Abdominal Pain:</label>
+            <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="abdominal_pain" id="abdominal_pain" min="0" max="3" value="0" oninput="updateValue('abdominal_pain', 'abdominalPainValue')" required>
+            <span id="abdominalPainValue" class="range-value">0</span>
+        </div>
+
+        <div class="range-container">
+            <div class="range-info">
+            <label for="bleeding">Bleeding:</label>
+            <span class="range-description">0 - No, 1 - Mild, 2 - Moderate, 3 - Severe</span>
+            </div>
+            <input type="range" name="bleeding" id="bleeding" min="0" max="3" value="0" oninput="updateValue('bleeding', 'bleedingValue')" required>
+            <span id="bleedingValue" class="range-value">0</span>
+        </div>
+
+        <label for="symptom_duration">Symptom Duration (Days):</label>
+        <input type="number" name="symptom_duration" id="symptom_duration" min="1" required>
+
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" name="temperature" id="temperature" min="0" max="50" required>
+
+        <label for="humidity">Humidity (%):</label>
+        <input type="number" name="humidity" id="humidity" min="0" max="100" required>
+
+        <label for="rainfall">Rainfall (mm):</label>
+        <input type="number" name="rainfall" id="rainfall" min="0" max="500" required>
+
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
