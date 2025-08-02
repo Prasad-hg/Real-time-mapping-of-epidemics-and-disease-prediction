@@ -190,8 +190,7 @@ scaler = joblib.load('models/scaler_model.pkl')
 malaria_model = joblib.load('models/malaria_model.pkl')
 dengue_model = joblib.load('models/dengue_model.pkl')
 
-gmaps = googlemaps.Client(key='AIzaSyBDBEHZReEr8Zyc_MKNucPPSUkjMl6YhBA')
-
+gmaps = googlemaps.Client(key='AIzaSyCAHousPsmhjL1Mvq2YBR7ZgF6WTN79mw4')
 data = pd.read_csv('data/high_low_region.csv')
 
 
